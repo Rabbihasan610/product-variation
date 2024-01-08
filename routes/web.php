@@ -22,3 +22,4 @@ Route::get('/', [ProductController::class, 'create'])->name('product.create');
 Route::get('attribute-value', [ProductController::class, 'attributeValue'])->name('product.attribute.value');
 Route::get('attribute-value-form', [ProductController::class, 'attributeValueForm'])->name('product.attribute.value.form');
 Route::post('store-product', [ProductController::class, 'store'])->name('product.store');
+Route::get('generate-barcode', [ProductController::class, 'generateBarcode'])->name('generate-barcode');

@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ProductAttibute;
 use Illuminate\Support\Facades\Validator;
+use Milon\Barcode\DNS1D;
 
 class ProductController extends Controller
 {
@@ -127,13 +128,6 @@ class ProductController extends Controller
 
         if ($request->add_varient == 'on') {
 
-            $content = [
-                'sku'  => $request->var_sku,
-                'color' => $request->var_title,
-                'value' => $request->var_val,
-                'uint' => $request->var_unit,
-            ];
-
             //return $content;
 
             for ($i = 0; $i < count($request->var_sku); $i++) {
@@ -143,7 +137,8 @@ class ProductController extends Controller
                 $product->category_id  = $request->category_id;
                 $product->unit  = $request->var_unit[$i];
                 $product->sku  = $request->var_sku[$i];
-                $product->content  = json_encode($content);
+                $product->barcode  = $request->var_barcode[$i];
+                $product->content  = $request->content;
                 $product->status  = 'Active';
 
                 $product->save();
@@ -155,10 +150,25 @@ class ProductController extends Controller
             $product->category_id  = $request->category_id;
             $product->unit  = $request->unit;
             $product->sku  = $request->sku;
+            $product->barcode  = $request->barcode;
+            $product->content  = $request->content;
             $product->status  = 'Active';
             $product->save();
         }
 
         return back()->with(['success' => "Product add success"]);
+    }
+
+    public function generateBarcode()
+    {
+        $code = rand(10000000, 99999999); // Adjust the range as needed
+        $barcode = new DNS1D();
+        $gen = $barcode->getBarcodeHTML($code, 'C39');
+
+        return response()->json([
+            'status'  => true,
+            'code'    => $code,
+            'barcode' => $gen
+        ]);
     }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('category_id')->nullable();
             $table->string('unit')->nullable();
             $table->string('sku')->nullable();
+            $table->string('barcode')->nullable();
             $table->text('content')->nullable();
             $table->string('orders')->default(0);
             $table->string('status')->default('Active');

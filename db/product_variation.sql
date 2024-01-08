@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 08, 2024 at 04:05 PM
+-- Generation Time: Jan 08, 2024 at 08:49 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -105,6 +105,7 @@ CREATE TABLE `products` (
   `category_id` int DEFAULT NULL,
   `unit` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `sku` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `barcode` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8mb4_unicode_ci,
   `orders` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Active',
@@ -116,25 +117,10 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `title`, `slug`, `category_id`, `unit`, `sku`, `content`, `orders`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Product', 'product-blue-small', 1, 'asfas', 'product-blue-small', '{\"sku\":[\"product-blue-small\",\"product-black-small\"],\"color\":[\"Blue\",\"Black\"],\"value\":[\"Small\",\"Small\"],\"uint\":[\"asfas\",\"asfsafas\"]}', '0', 'Active', '2024-01-08 03:49:00', '2024-01-08 03:49:00'),
-(2, 'Product', 'product-black-small', 1, 'asfsafas', 'product-black-small', '{\"sku\":[\"product-blue-small\",\"product-black-small\"],\"color\":[\"Blue\",\"Black\"],\"value\":[\"Small\",\"Small\"],\"uint\":[\"asfas\",\"asfsafas\"]}', '0', 'Active', '2024-01-08 03:49:00', '2024-01-08 03:49:00'),
-(3, 'demo', 'demo-blue-small', 2, 'gdfg', 'demo-blue-small', '{\"sku\":[\"demo-blue-small\",\"demo-blue-medium\",\"demo-blue-large\",\"demo-black-small\",\"demo-black-medium\",\"demo-black-large\",\"demo-green-small\",\"demo-green-medium\",\"demo-green-large\"],\"color\":[\"Blue\",\"Blue\",\"Blue\",\"Black\",\"Black\",\"Black\",\"Green\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\"],\"uint\":[\"gdfg\",\"fdg\",\"fg\",\"dfgfd\",\"dfg\",\"fg\",\"dfgdf\",\"fd\",\"df\"]}', '0', 'Active', '2024-01-08 03:53:19', '2024-01-08 03:53:19'),
-(4, 'demo', 'demo-blue-medium', 2, 'fdg', 'demo-blue-medium', '{\"sku\":[\"demo-blue-small\",\"demo-blue-medium\",\"demo-blue-large\",\"demo-black-small\",\"demo-black-medium\",\"demo-black-large\",\"demo-green-small\",\"demo-green-medium\",\"demo-green-large\"],\"color\":[\"Blue\",\"Blue\",\"Blue\",\"Black\",\"Black\",\"Black\",\"Green\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\"],\"uint\":[\"gdfg\",\"fdg\",\"fg\",\"dfgfd\",\"dfg\",\"fg\",\"dfgdf\",\"fd\",\"df\"]}', '0', 'Active', '2024-01-08 03:53:19', '2024-01-08 03:53:19'),
-(5, 'demo', 'demo-blue-large', 2, 'fg', 'demo-blue-large', '{\"sku\":[\"demo-blue-small\",\"demo-blue-medium\",\"demo-blue-large\",\"demo-black-small\",\"demo-black-medium\",\"demo-black-large\",\"demo-green-small\",\"demo-green-medium\",\"demo-green-large\"],\"color\":[\"Blue\",\"Blue\",\"Blue\",\"Black\",\"Black\",\"Black\",\"Green\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\"],\"uint\":[\"gdfg\",\"fdg\",\"fg\",\"dfgfd\",\"dfg\",\"fg\",\"dfgdf\",\"fd\",\"df\"]}', '0', 'Active', '2024-01-08 03:53:19', '2024-01-08 03:53:19'),
-(6, 'demo', 'demo-black-small', 2, 'dfgfd', 'demo-black-small', '{\"sku\":[\"demo-blue-small\",\"demo-blue-medium\",\"demo-blue-large\",\"demo-black-small\",\"demo-black-medium\",\"demo-black-large\",\"demo-green-small\",\"demo-green-medium\",\"demo-green-large\"],\"color\":[\"Blue\",\"Blue\",\"Blue\",\"Black\",\"Black\",\"Black\",\"Green\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\"],\"uint\":[\"gdfg\",\"fdg\",\"fg\",\"dfgfd\",\"dfg\",\"fg\",\"dfgdf\",\"fd\",\"df\"]}', '0', 'Active', '2024-01-08 03:53:19', '2024-01-08 03:53:19'),
-(7, 'demo', 'demo-black-medium', 2, 'dfg', 'demo-black-medium', '{\"sku\":[\"demo-blue-small\",\"demo-blue-medium\",\"demo-blue-large\",\"demo-black-small\",\"demo-black-medium\",\"demo-black-large\",\"demo-green-small\",\"demo-green-medium\",\"demo-green-large\"],\"color\":[\"Blue\",\"Blue\",\"Blue\",\"Black\",\"Black\",\"Black\",\"Green\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\"],\"uint\":[\"gdfg\",\"fdg\",\"fg\",\"dfgfd\",\"dfg\",\"fg\",\"dfgdf\",\"fd\",\"df\"]}', '0', 'Active', '2024-01-08 03:53:19', '2024-01-08 03:53:19'),
-(8, 'demo', 'demo-black-large', 2, 'fg', 'demo-black-large', '{\"sku\":[\"demo-blue-small\",\"demo-blue-medium\",\"demo-blue-large\",\"demo-black-small\",\"demo-black-medium\",\"demo-black-large\",\"demo-green-small\",\"demo-green-medium\",\"demo-green-large\"],\"color\":[\"Blue\",\"Blue\",\"Blue\",\"Black\",\"Black\",\"Black\",\"Green\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\"],\"uint\":[\"gdfg\",\"fdg\",\"fg\",\"dfgfd\",\"dfg\",\"fg\",\"dfgdf\",\"fd\",\"df\"]}', '0', 'Active', '2024-01-08 03:53:19', '2024-01-08 03:53:19'),
-(9, 'demo', 'demo-green-small', 2, 'dfgdf', 'demo-green-small', '{\"sku\":[\"demo-blue-small\",\"demo-blue-medium\",\"demo-blue-large\",\"demo-black-small\",\"demo-black-medium\",\"demo-black-large\",\"demo-green-small\",\"demo-green-medium\",\"demo-green-large\"],\"color\":[\"Blue\",\"Blue\",\"Blue\",\"Black\",\"Black\",\"Black\",\"Green\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\"],\"uint\":[\"gdfg\",\"fdg\",\"fg\",\"dfgfd\",\"dfg\",\"fg\",\"dfgdf\",\"fd\",\"df\"]}', '0', 'Active', '2024-01-08 03:53:19', '2024-01-08 03:53:19'),
-(10, 'demo', 'demo-green-medium', 2, 'fd', 'demo-green-medium', '{\"sku\":[\"demo-blue-small\",\"demo-blue-medium\",\"demo-blue-large\",\"demo-black-small\",\"demo-black-medium\",\"demo-black-large\",\"demo-green-small\",\"demo-green-medium\",\"demo-green-large\"],\"color\":[\"Blue\",\"Blue\",\"Blue\",\"Black\",\"Black\",\"Black\",\"Green\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\"],\"uint\":[\"gdfg\",\"fdg\",\"fg\",\"dfgfd\",\"dfg\",\"fg\",\"dfgdf\",\"fd\",\"df\"]}', '0', 'Active', '2024-01-08 03:53:19', '2024-01-08 03:53:19'),
-(11, 'demo', 'demo-green-large', 2, 'df', 'demo-green-large', '{\"sku\":[\"demo-blue-small\",\"demo-blue-medium\",\"demo-blue-large\",\"demo-black-small\",\"demo-black-medium\",\"demo-black-large\",\"demo-green-small\",\"demo-green-medium\",\"demo-green-large\"],\"color\":[\"Blue\",\"Blue\",\"Blue\",\"Black\",\"Black\",\"Black\",\"Green\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\",\"Small\",\"Medium\",\"Large\"],\"uint\":[\"gdfg\",\"fdg\",\"fg\",\"dfgfd\",\"dfg\",\"fg\",\"dfgdf\",\"fd\",\"df\"]}', '0', 'Active', '2024-01-08 03:53:19', '2024-01-08 03:53:19'),
-(12, 'demo', 'demo-blue-small-1', 2, NULL, 'demo-blue-small-1', '{\"sku\":[\"demo-blue-small-1\",\"demo-blue-medium-1\",\"demo-black-small-1\",\"demo-black-medium-1\",\"demo-green-small-1\",\"demo-green-medium-1\"],\"color\":[\"Blue\",\"Blue\",\"Black\",\"Black\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Small\",\"Medium\",\"Small\",\"Medium\"],\"uint\":[null,null,null,null,null,null]}', '0', 'Active', '2024-01-08 03:54:17', '2024-01-08 03:54:17'),
-(13, 'demo', 'demo-blue-medium-1', 2, NULL, 'demo-blue-medium-1', '{\"sku\":[\"demo-blue-small-1\",\"demo-blue-medium-1\",\"demo-black-small-1\",\"demo-black-medium-1\",\"demo-green-small-1\",\"demo-green-medium-1\"],\"color\":[\"Blue\",\"Blue\",\"Black\",\"Black\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Small\",\"Medium\",\"Small\",\"Medium\"],\"uint\":[null,null,null,null,null,null]}', '0', 'Active', '2024-01-08 03:54:17', '2024-01-08 03:54:17'),
-(14, 'demo', 'demo-black-small-1', 2, NULL, 'demo-black-small-1', '{\"sku\":[\"demo-blue-small-1\",\"demo-blue-medium-1\",\"demo-black-small-1\",\"demo-black-medium-1\",\"demo-green-small-1\",\"demo-green-medium-1\"],\"color\":[\"Blue\",\"Blue\",\"Black\",\"Black\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Small\",\"Medium\",\"Small\",\"Medium\"],\"uint\":[null,null,null,null,null,null]}', '0', 'Active', '2024-01-08 03:54:17', '2024-01-08 03:54:17'),
-(15, 'demo', 'demo-black-medium-1', 2, NULL, 'demo-black-medium-1', '{\"sku\":[\"demo-blue-small-1\",\"demo-blue-medium-1\",\"demo-black-small-1\",\"demo-black-medium-1\",\"demo-green-small-1\",\"demo-green-medium-1\"],\"color\":[\"Blue\",\"Blue\",\"Black\",\"Black\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Small\",\"Medium\",\"Small\",\"Medium\"],\"uint\":[null,null,null,null,null,null]}', '0', 'Active', '2024-01-08 03:54:17', '2024-01-08 03:54:17'),
-(16, 'demo', 'demo-green-small-1', 2, NULL, 'demo-green-small-1', '{\"sku\":[\"demo-blue-small-1\",\"demo-blue-medium-1\",\"demo-black-small-1\",\"demo-black-medium-1\",\"demo-green-small-1\",\"demo-green-medium-1\"],\"color\":[\"Blue\",\"Blue\",\"Black\",\"Black\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Small\",\"Medium\",\"Small\",\"Medium\"],\"uint\":[null,null,null,null,null,null]}', '0', 'Active', '2024-01-08 03:54:17', '2024-01-08 03:54:17'),
-(17, 'demo', 'demo-green-medium-1', 2, NULL, 'demo-green-medium-1', '{\"sku\":[\"demo-blue-small-1\",\"demo-blue-medium-1\",\"demo-black-small-1\",\"demo-black-medium-1\",\"demo-green-small-1\",\"demo-green-medium-1\"],\"color\":[\"Blue\",\"Blue\",\"Black\",\"Black\",\"Green\",\"Green\"],\"value\":[\"Small\",\"Medium\",\"Small\",\"Medium\",\"Small\",\"Medium\"],\"uint\":[null,null,null,null,null,null]}', '0', 'Active', '2024-01-08 03:54:17', '2024-01-08 03:54:17'),
-(18, 'dfghfdgh', 'dfghfdgh', 2, NULL, 'fdfdhfdh', NULL, '0', 'Active', '2024-01-08 03:55:24', '2024-01-08 03:55:24');
+INSERT INTO `products` (`id`, `title`, `slug`, `category_id`, `unit`, `sku`, `barcode`, `content`, `orders`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'afasfasf', 'afasfasf-blue-small', 1, NULL, 'afasfasf-blue-small', '85552095', 'asfasfasfasfasf', '0', 'Active', '2024-01-08 08:47:38', '2024-01-08 08:47:38'),
+(2, 'afasfasf', 'afasfasf-black-small', 1, NULL, 'afasfasf-black-small', '55145289', 'asfasfasfasfasf', '0', 'Active', '2024-01-08 08:47:38', '2024-01-08 08:47:38'),
+(3, 'afasfasf', 'afasfasf-green-small', 1, NULL, 'afasfasf-green-small', '87363596', 'asfasfasfasfasf', '0', 'Active', '2024-01-08 08:47:38', '2024-01-08 08:47:38');
 
 -- --------------------------------------------------------
 
@@ -155,14 +141,14 @@ CREATE TABLE `product_attibutes` (
 --
 
 INSERT INTO `product_attibutes` (`id`, `title`, `parent_id`, `created_at`, `updated_at`) VALUES
-(1, 'Color', 0, '2024-01-07 22:32:08', '2024-01-07 22:32:08'),
-(2, 'Blue', 1, '2024-01-07 22:32:08', '2024-01-07 22:32:08'),
-(3, 'Black', 1, '2024-01-07 22:32:08', '2024-01-07 22:32:08'),
-(4, 'Green', 1, '2024-01-07 22:32:08', '2024-01-07 22:32:08'),
-(5, 'Size', 0, '2024-01-07 22:32:08', '2024-01-07 22:32:08'),
-(6, 'Small', 5, '2024-01-07 22:32:08', '2024-01-07 22:32:08'),
-(7, 'Medium', 5, '2024-01-07 22:32:08', '2024-01-07 22:32:08'),
-(8, 'Large', 5, '2024-01-07 22:32:08', '2024-01-07 22:32:08');
+(1, 'Color', 0, '2024-01-08 08:46:37', '2024-01-08 08:46:37'),
+(2, 'Blue', 1, '2024-01-08 08:46:37', '2024-01-08 08:46:37'),
+(3, 'Black', 1, '2024-01-08 08:46:37', '2024-01-08 08:46:37'),
+(4, 'Green', 1, '2024-01-08 08:46:37', '2024-01-08 08:46:37'),
+(5, 'Size', 0, '2024-01-08 08:46:37', '2024-01-08 08:46:37'),
+(6, 'Small', 5, '2024-01-08 08:46:37', '2024-01-08 08:46:37'),
+(7, 'Medium', 5, '2024-01-08 08:46:37', '2024-01-08 08:46:37'),
+(8, 'Large', 5, '2024-01-08 08:46:37', '2024-01-08 08:46:37');
 
 -- --------------------------------------------------------
 
@@ -257,7 +243,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `product_attibutes`
