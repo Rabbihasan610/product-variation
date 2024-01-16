@@ -60,7 +60,15 @@ class ProductController extends Controller
                     $current_form[] = [
                         'id'    => $attribute->id,
                         'title' => $attribute->title,
-                        'sku'   => Str::lower($request->productTitle) . '-' . "-" . Str::lower($attribute->title),
+                        'val'   => $attribute->title,
+                        'sku'   => Str::lower($request->productTitle) . "-" . Str::lower($attribute->title),
+                    ];
+
+                    $attribute_form[] = [
+                        'id'    => $attribute->id,
+                        'title' => $attribute->title,
+                        'val'   => $attribute->title,
+                        'sku'   => Str::lower($request->productTitle) . '-' . Str::lower($attribute->title),
                     ];
                 }
             }

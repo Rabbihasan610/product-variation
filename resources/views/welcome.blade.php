@@ -193,19 +193,25 @@
                     }
                 })
             });
+
             $("#attributeValue").change(function() {
-                var selectedIds = [];
+
                 var productTitle = $("#productTitle").val();
+                var selectedIds = [];
+
                 $("#attribute").find(":selected").each(function() {
                     var selectedId = $(this).data("id");
                     selectedIds.push(selectedId);
                 });
+
                 var selectedValueIds = [];
                 $(this).find(":selected").each(function() {
                     var selectedValueId = $(this).data('id');
                     selectedValueIds.push(selectedValueId);
                 });
+
                 var url = "{{ route('product.attribute.value.form') }}";
+
                 $.ajax({
                     type: "GET",
                     url: url,
@@ -215,6 +221,7 @@
                         productTitle: productTitle,
                     },
                     success: function(res) {
+                        console.log(res);
                         if (res.status === true && res.data !== undefined && res.data !==
                             null) {
                             attributes_option(res.data);

@@ -52,5 +52,25 @@ class ProductAttributeSeeder extends Seeder
             "title"      =>  "Large",
             "parent_id"  => 5
         ]);
+
+        ProductAttibute::create([
+            "title"      =>  "Blade",
+            "parent_id"  => 0
+        ]);
+
+        ProductAttibute::create([
+            "title"      =>  "1",
+            "parent_id"  => 9
+        ]);
+
+        ProductAttibute::create([
+            "title"      =>  "2",
+            "parent_id"  => 9
+        ]);
+
+        ProductAttibute::create([
+            "title"      =>  "3",
+            "parent_id"  => 9
+        ]);
     }
 }
