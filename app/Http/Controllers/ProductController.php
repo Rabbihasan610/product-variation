@@ -47,11 +47,41 @@ class ProductController extends Controller
         try {
             $attribute_form = [];
             $current_form = [];
-            $attribute_id = current($request->ids);
+            $attribute_id = $request->ids[0];
+            $next_attribute_id = $request->ids[1] ?? null;
+            $blade_attribute_id = $request->ids[2] ?? null;
             $current_ids_count = 0;
             $current_ids = [];
 
+            $next_attributes_count = 0;
+            $next_ids = [];
+            $blade_attributes_counts = 0;
+            $blade_ids = [];
+
             foreach ($request->valueIds as $valueId) {
+                if ($blade_attribute_id !== null) {
+                    $blade_attributes_counts++;
+                    $blade_attribute = ProductAttibute::where('id', $valueId)
+                        ->where('parent_id', $blade_attribute_id)
+                        ->first();
+
+                    if ($blade_attribute) {
+                        $blade_ids[] = $blade_attribute->id;
+                    }
+                }
+
+                if ($next_attribute_id !== null) {
+                    $next_attribute = ProductAttibute::where('id', $valueId)
+                        ->where('parent_id', $next_attribute_id)
+                        ->first();
+
+                    if ($next_attribute) {
+                        $next_attributes_count++;
+                        $next_ids[] = $next_attribute->id;
+
+                    }
+                }
+
                 $attribute = ProductAttibute::where('id', $valueId)->where('parent_id', $attribute_id)->first();
 
                 if ($attribute) {
@@ -64,12 +94,6 @@ class ProductController extends Controller
                         'sku'   => Str::lower($request->productTitle) . "-" . Str::lower($attribute->title),
                     ];
 
-                    $attribute_form[] = [
-                        'id'    => $attribute->id,
-                        'title' => $attribute->title,
-                        'val'   => $attribute->title,
-                        'sku'   => Str::lower($request->productTitle) . '-' . Str::lower($attribute->title),
-                    ];
                 }
             }
 
@@ -83,23 +107,59 @@ class ProductController extends Controller
                 $val_ids[] = $val->id;
             }
 
-            for ($i = 0; $i < $current_ids_count; $i++) {
-                foreach ($val_ids as $id) {
-                    $attr_option = ProductAttibute::find($id);
-                    if ($attr_option) {
 
-                        $sku_gen = Str::lower($request->productTitle) . '-' . Str::lower($current_form[$i]['title']) . '-' . Str::lower($attr_option->title);
+            foreach ($current_ids as $i => $current_id) {
+                 $firstElement = ProductAttibute::where('id', $current_id)->first();
 
-                        $ex_product = Product::where('slug', $sku_gen)->first();
+//                 $attribute_form[] = [
+//                     'id'    => $firstElement->id,
+//                     'title' => $firstElement->title,
+//                     'val'   => $firstElement->title,
+//                     'sku'   => Str::lower($request->productTitle) . '-' . Str::lower($firstElement->title),
+//                 ];
 
-                        if ($ex_product) {
-                            $attribute_form[] = [
-                                'id'    => $attr_option->id,
-                                'title' => $current_form[$i]['title'],
-                                'val'   => $attr_option->title,
-                                'sku'   => $sku_gen . '-' . 1,
-                            ];
-                        } else {
+                foreach ($next_ids as $key => $next_id) {
+
+                    if (count($blade_ids) > 0) {
+                        foreach ($blade_ids as $key => $blade_id) {
+                            $attr_option = ProductAttibute::where('id', $next_id)->first();
+                            $blade_option = ProductAttibute::where('id', $blade_id)->first();
+
+                            if ($attr_option && $blade_option) {
+                                $sku_gen = Str::lower($request->productTitle) . '-' . Str::lower($current_form[$i]['title']) . '-' . Str::lower($attr_option->title) . '-' . Str::lower($blade_option->title);
+                                $ex_product = Product::where('slug', $sku_gen)->first();
+
+                                if ($ex_product) {
+                                    $suffix = 1;
+                                    do {
+                                        $ex_product = Product::where('slug', $sku_gen)->first();
+                                        $suffix++;
+                                    } while ($ex_product);
+                                }
+
+                                $attribute_form[] = [
+                                    'id'    => $attr_option->id,
+                                    'title' => $current_form[$i]['title'],
+                                    'val'   => $attr_option->title,
+                                    'sku'   => $sku_gen,
+                                ];
+                            }
+                        }
+                    }else{
+                        $attr_option = ProductAttibute::where('id', $next_id)->first();
+
+                        if ($attr_option) {
+                            $sku_gen = Str::lower($request->productTitle) . '-' . Str::lower($current_form[$i]['title']) . '-' . Str::lower($attr_option->title);
+                            $ex_product = Product::where('slug', $sku_gen)->first();
+
+                            if ($ex_product) {
+                                $suffix = 1;
+                                do {
+                                    $ex_product = Product::where('slug', $sku_gen)->first();
+                                    $suffix++;
+                                } while ($ex_product);
+                            }
+
                             $attribute_form[] = [
                                 'id'    => $attr_option->id,
                                 'title' => $current_form[$i]['title'],
@@ -108,64 +168,25 @@ class ProductController extends Controller
                             ];
                         }
                     }
+
                 }
+
             }
 
             return response()->json([
                 'status'  => true,
-                'data'    => $attribute_form,
+                'data'    => $attribute_form ?? $current_form,
                 'message' => 'Attribute values retrieved successfully',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status'  => false,
-                'message' => 'Something went wrong',
+                'message' => $e->getMessage(),
             ]);
         }
     }
 
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            "title" => "required|string",
-        ]);
 
-        if ($validator->fails()) {
-            return back()->with(['error' => $validator->errors()->first()]);
-        }
-
-        if ($request->add_varient == 'on') {
-
-            //return $content;
-
-            for ($i = 0; $i < count($request->var_sku); $i++) {
-                $product = new Product();
-                $product->title = $request->title;
-                $product->slug  = $request->var_sku[$i];
-                $product->category_id  = $request->category_id;
-                $product->unit  = $request->var_unit[$i];
-                $product->sku  = $request->var_sku[$i];
-                $product->barcode  = $request->var_barcode[$i];
-                $product->content  = $request->content;
-                $product->status  = 'Active';
-
-                $product->save();
-            }
-        } else {
-            $product = new Product();
-            $product->title = $request->title;
-            $product->slug  = $request->title;
-            $product->category_id  = $request->category_id;
-            $product->unit  = $request->unit;
-            $product->sku  = $request->sku;
-            $product->barcode  = $request->barcode;
-            $product->content  = $request->content;
-            $product->status  = 'Active';
-            $product->save();
-        }
-
-        return back()->with(['success' => "Product add success"]);
-    }
 
     public function generateBarcode()
     {
