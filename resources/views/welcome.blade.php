@@ -221,7 +221,7 @@
                         productTitle: productTitle,
                     },
                     success: function(res) {
-                        console.log(res);
+
                        if (res.status === true && res.data !== undefined && res.data !==
                            null) {
                            attributes_option(res.data);
