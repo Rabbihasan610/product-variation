@@ -109,14 +109,15 @@ class ProductController extends Controller
 
 
             foreach ($current_ids as $i => $current_id) {
-                 $firstElement = ProductAttibute::where('id', $current_id)->first();
+                $firstElement = ProductAttibute::where('id', $current_id)->first();
 
-//                 $attribute_form[] = [
-//                     'id'    => $firstElement->id,
-//                     'title' => $firstElement->title,
-//                     'val'   => $firstElement->title,
-//                     'sku'   => Str::lower($request->productTitle) . '-' . Str::lower($firstElement->title),
-//                 ];
+                if(!$next_ids){
+                    return response()->json([
+                        'status'  => true,
+                        'data'    => $current_form,
+                        'message' => 'Attribute values retrieved successfully',
+                    ]);
+                }
 
                 foreach ($next_ids as $key => $next_id) {
 
@@ -175,7 +176,7 @@ class ProductController extends Controller
 
             return response()->json([
                 'status'  => true,
-                'data'    => $attribute_form ?? $current_form,
+                'data'    => $attribute_form,
                 'message' => 'Attribute values retrieved successfully',
             ]);
         } catch (\Exception $e) {
